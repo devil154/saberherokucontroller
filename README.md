@@ -1,6 +1,6 @@
 # saberherokucontroller
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/hyper-ub/saberherokucontroller/tree/main)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/hyper-ub/saberherokucontroller)
 
 ## Available commands
 
