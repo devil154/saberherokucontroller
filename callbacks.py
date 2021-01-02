@@ -192,6 +192,6 @@ def helpHandler(update,context):
 @run_async
 def aboutHandler(update,context):
     message = update.effective_message
-    message.reply_text("Hey, I'm Developed & Hosted By - @imDivu\n"
-                       f"I Can Control {Config.BOT_NAME} With Black Magic🌚\n"
+    message.reply_text("Hey, I'm Developed & Hosted By - @fateunion\n"
+                       f"I Can Control {Config.BOT_NAME} With help of heroku 3\n"
                        f"If You Find Any Issues & Problem Tell Us - @{Config.SUPPORT_CHAT}.")
