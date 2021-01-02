@@ -33,8 +33,7 @@ def startHandler(update,context):
     user_id = message.from_user.id
     first_name = update.message.from_user.first_name
     message.reply_text(f"Hey *{first_name}*, I'm *{Config.BOT_NAME}'s Controler Bot* :)\n"
-                       f"I Manage {Config.BOT_NAME}'s heroku app.\n\n"
-                       "/help to see more options.\n\n",
+                       f"I Manage {Config.BOT_NAME}'s heroku app.\n\n",
                        parse_mode=ParseMode.MARKDOWN)
     if int(user_id) in Config.SUDO_USERS:
         user_status = "Sudo user"
