@@ -35,10 +35,6 @@ def startHandler(update,context):
     message.reply_text(f"Hey *{first_name}*, I'm *{Config.BOT_NAME}'s Controler Bot* :)\n"
                        f"I Manage {Config.BOT_NAME}'s heroku app.\n\n"
                        "/help to see more options.\n\n"
-                       "Admins are devided into two parts:\n"
-                       "1: *Sudo Users* and\n"
-                       "2: *Support Users.*\n\n"
-                       "Sudo users have full power over me and Support users can do almost everything.\n",
                        parse_mode=ParseMode.MARKDOWN)
     if int(user_id) in Config.SUDO_USERS:
         user_status = "Sudo user"
