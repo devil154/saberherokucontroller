@@ -70,6 +70,29 @@ def logHandler(update,context):
     else:
         message.reply_text(non_admin,parse_mode=ParseMode.HTML)
 
+@run_async
+def restartHandler(update,context):
+    bot = context.bot
+    sudo = Config.SUDO_USERS 
+    message = update.effective_message
+    user = update.effective_user
+    user_id = message.from_user.id
+    datetime_fmt = "%Y-%m-%d // %H:%M"
+    current_time = datetime.utcnow().strftime(datetime_fmt)
+    if int(user_id) in sudo:
+        herokuHelper = HerokuHelper(Config.HEROKU_APP_NAME,Config.HEROKU_API_KEY)
+        herokuHelper.restart()
+        update.message.reply_text("Restarted.")
+        if Config.LOGS:
+            bot.send_message(Config.LOGS,
+                "<b>[Restarted]</b>\n\n"
+                f"<b>Admin:</b> {mention_html(user.id, user.first_name)}\n"
+                f"<b>Event Stamp:</b> <code>{current_time}</code>",
+                 parse_mode=ParseMode.HTML
+            )
+    else:
+        message.reply_text(non_admin,parse_mode=ParseMode.HTML)
+
 
     
 @run_async
