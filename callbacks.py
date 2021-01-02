@@ -20,7 +20,7 @@ help_string = f"""<b>Available commands:</b>
 - /dynos: to check {Config.BOT_NAME}'s dyno usage.
 - /log: to get latest console log in .txt
 - /about: to get info about me.
-Join channel: @{Config.SUPPORT_CHAT}
+Join support group : @{Config.SUPPORT_CHAT}
 """
 
 non_admin = f"<code>You Are Not Allowed To Use This cmd.\nDo</code> /help <code>For get more cmds.\nJoin Chat:</code> @{Config.SUPPORT_CHAT}"
