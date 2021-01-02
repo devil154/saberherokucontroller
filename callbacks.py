@@ -16,7 +16,6 @@ from telegram.utils.helpers import mention_html
 help_string = f"""<b>Available commands:</b>
 - /start: for start message.
 - /help: for get this message.
-- /admins: get user ID's list of who have power over me.
 - /restart: to restart @{Config.BOT_USERNAME}.
 - /dynos: to check {Config.BOT_NAME}'s dyno usage.
 - /log: to get latest console log in .txt
@@ -71,59 +70,6 @@ def logHandler(update,context):
     else:
         message.reply_text(non_admin,parse_mode=ParseMode.HTML)
 
-@run_async
-def adminsHandler(update,context):
-    bot = context.bot
-    message = update.effective_message
-    text1 = "My sudo users are:"
-    text2 = "My support users are:"
-    for user_id in Config.SUDO_USERS:
-        try:
-            user = bot.get_chat(user_id)
-            name = "[{}](tg://user?id={})".format(
-                user.first_name + (user.last_name or ""), user.id)
-            if user.username:
-                name = escape_markdown("@" + user.username)
-            text1 += "\n - `{}`".format(name)
-        except BadRequest as excp:
-            if excp.message == 'Chat not found':
-                text1 += "\n - ({}) - not found".format(user_id)
-    for user_id in Config.SUPPORT_USERS:
-        try:
-            user = bot.get_chat(user_id)
-            name = "[{}](tg://user?id={})".format(
-                user.first_name + (user.last_name or ""), user.id)
-            if user.username:   
-                name = escape_markdown("@" + user.username)
-            text2 += "\n - `{}`".format(name)
-        except BadRequest as excp:
-            if excp.message == 'Chat not found':
-                text2 += "\n - ({}) - not found".format(user_id)
-    message.reply_text(text1 + "\n" + text2 + "\n",
-                       parse_mode=ParseMode.MARKDOWN)
-
-@run_async
-def restartHandler(update,context):
-    bot = context.bot
-    sudo = Config.SUDO_USERS 
-    message = update.effective_message
-    user = update.effective_user
-    user_id = message.from_user.id
-    datetime_fmt = "%Y-%m-%d // %H:%M"
-    current_time = datetime.utcnow().strftime(datetime_fmt)
-    if int(user_id) in sudo:
-        herokuHelper = HerokuHelper(Config.HEROKU_APP_NAME,Config.HEROKU_API_KEY)
-        herokuHelper.restart()
-        update.message.reply_text("Restarted.")
-        if Config.LOGS:
-            bot.send_message(Config.LOGS,
-                "<b>[Restarted]</b>\n\n"
-                f"<b>Admin:</b> {mention_html(user.id, user.first_name)}\n"
-                f"<b>Event Stamp:</b> <code>{current_time}</code>",
-                 parse_mode=ParseMode.HTML
-            )
-    else:
-        message.reply_text(non_admin,parse_mode=ParseMode.HTML)
 
     
 @run_async
